@@ -67,7 +67,7 @@ list_points = [Point([-50, 50, 150]), Point([50, 50, 150]),
                Point([50, -50, 250]), Point([-50, -50, 250])] 
 
 
-def generate_cube():
+def generate_cube(size):
     for i in range(90):
         tu.clear()
         tu.up()
@@ -91,39 +91,39 @@ def generate_cube():
         list_points[7].check_point()
 
         tu.up()
-        tu.goto(list_points[0].save[0], list_points[0].save[1])
+        tu.goto(list_points[0].save[0]*size, list_points[0].save[1]*size)
         tu.down()
-        tu.goto(list_points[1].save[0], list_points[1].save[1])
-        tu.goto(list_points[2].save[0], list_points[2].save[1])
-        tu.goto(list_points[3].save[0], list_points[3].save[1])
-        tu.goto(list_points[0].save[0], list_points[0].save[1])            
+        tu.goto(list_points[1].save[0]*size, list_points[1].save[1]*size)
+        tu.goto(list_points[2].save[0]*size, list_points[2].save[1]*size)
+        tu.goto(list_points[3].save[0]*size, list_points[3].save[1]*size)
+        tu.goto(list_points[0].save[0]*size, list_points[0].save[1]*size)            
         tu.up()
-        tu.goto(list_points[4].save[0], list_points[4].save[1])
+        tu.goto(list_points[4].save[0]*size, list_points[4].save[1]*size)
         tu.down()
-        tu.goto(list_points[5].save[0], list_points[5].save[1])
-        tu.goto(list_points[6].save[0], list_points[6].save[1])
-        tu.goto(list_points[7].save[0], list_points[7].save[1])
-        tu.goto(list_points[4].save[0], list_points[4].save[1])
+        tu.goto(list_points[5].save[0]*size, list_points[5].save[1]*size)
+        tu.goto(list_points[6].save[0]*size, list_points[6].save[1]*size)
+        tu.goto(list_points[7].save[0]*size, list_points[7].save[1]*size)
+        tu.goto(list_points[4].save[0]*size, list_points[4].save[1]*size)
         
         tu.up()
-        tu.goto(list_points[4].save[0], list_points[4].save[1])
+        tu.goto(list_points[4].save[0]*size, list_points[4].save[1]*size)
         tu.down()
-        tu.goto(list_points[0].save[0], list_points[0].save[1])
+        tu.goto(list_points[0].save[0]*size, list_points[0].save[1]*size)
         tu.up()
-        tu.goto(list_points[5].save[0], list_points[5].save[1])
+        tu.goto(list_points[5].save[0]*size, list_points[5].save[1]*size)
         tu.down()
-        tu.goto(list_points[1].save[0], list_points[1].save[1])
+        tu.goto(list_points[1].save[0]*size, list_points[1].save[1]*size)
         tu.up()
-        tu.goto(list_points[6].save[0], list_points[6].save[1])
+        tu.goto(list_points[6].save[0]*size, list_points[6].save[1]*size)
         tu.down()
-        tu.goto(list_points[2].save[0], list_points[2].save[1])
+        tu.goto(list_points[2].save[0]*size, list_points[2].save[1]*size)
         tu.up()
-        tu.goto(list_points[7].save[0], list_points[7].save[1])
+        tu.goto(list_points[7].save[0]*size, list_points[7].save[1]*size)
         tu.down()
-        tu.goto(list_points[3].save[0], list_points[3].save[1])
+        tu.goto(list_points[3].save[0]*size, list_points[3].save[1]*size)
         tu.Screen().update()
 
 while True:
-    generate_cube()
+    generate_cube(10)
 
 tu.Screen().update()
