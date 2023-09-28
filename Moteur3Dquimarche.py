@@ -82,10 +82,10 @@ list_points_cube = [Point([-50, 50, 150-z_change]), Point([50, 50, 150-z_change]
 list_points_pyramid = [Point([0, 50, 200-z_change]),
                Point([-50, -50, 150-z_change]), Point([50, -50, 150-z_change]),  
                Point([50, -50, 250-z_change]), Point([-50, -50, 250-z_change])] 
-list_points_table = [Point([-50, -50, 150-z_change]), Point([-50, -50, 175-z_change]),
-                       Point([-50, -25, 150-z_change]), Point([-50, -25, 175-z_change]),
-                       Point([-50, 0, 150-z_change]), Point([-50, 0, 175-z_change]),
-                       Point([-50, 0, 150-z_change]), Point([-50, 0, 175-z_change])]
+list_points_table = [Point([-50, 100, 150-z_change]), Point([50, 100, 150-z_change]), 
+               Point([50, 100, 250-z_change]), Point([-50, 100,250-z_change]), 
+               Point([-50, -50, 150-z_change]), Point([50, -50, 150-z_change]),  
+               Point([50, -50, 250-z_change]), Point([-50, -50, 250-z_change])] 
 
 list_points = list_points_table
 
@@ -106,8 +106,6 @@ def generate_cube(size):
     while True:
         tu.clear()
         tu.up()
-        turn_all_points_x()
-        turn_all_points_y()
         turn_all_points_z()
         
         check_all_points()
@@ -166,6 +164,8 @@ def generate_cube(size):
 def generate_pyramid(size):
     while True:
         tu.clear()
+        turn_all_points_y()
+        turn_all_points_z()
         turn_all_points_x()
         check_all_points()
         for i in range(4):
@@ -178,10 +178,7 @@ def generate_pyramid(size):
         tu.goto(list_points[1].save[0]*size, list_points[1].save[1]*size)
         tu.goto(list_points[4].save[0]*size, list_points[4].save[1]*size)
         tu.Screen().update()
-list_points_table = [Point([-50, -50, 150-z_change]), Point([-50, -50, 175-z_change]),
-                       Point([-50, -25, 150-z_change]), Point([-50, -25, 175-z_change]),
-                       Point([-50, 0, 150-z_change]), Point([-50, 0, 175-z_change]),
-                       Point([-50, 0, 150-z_change]), Point([-50, 0, 175-z_change])]
+
 def generate_table():
     while True:
         tu.clear()
@@ -194,7 +191,7 @@ def generate_table():
         tu.goto(list_points[2].save[0], list_points[2].save[1])
         tu.goto(list_points[0].save[0], list_points[0].save[1])
         tu.Screen().update
-generate_table()
+generate_cube(5)
 
 
         
