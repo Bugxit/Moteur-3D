@@ -3,8 +3,9 @@ import math as m
 import time as ti
 
 tu.hideturtle()
-
 tu.Screen().tracer(0)
+z_change = 0
+
 class Point():
     
     def __init__(self, point_coords):
@@ -74,24 +75,46 @@ class Spec(tu.Turtle):
         self.forward(1)
         self.seth(abs(m.floor(self.towards(screen_center_coords[0], screen_center_coords[1]))))
     self.new_point_coords = (round(self.xcor()))
-z_change = -50
-list_points_cube = [Point([-50, 50, 150-z_change]), Point([50, 50, 150-z_change]), 
+
+list_points_cube = [
+               Point([-50, 50, 150-z_change]), Point([50, 50, 150-z_change]), 
                Point([50, 50, 250-z_change]), Point([-50, 50,250-z_change]), 
                Point([-50, -50, 150-z_change]), Point([50, -50, 150-z_change]),  
-               Point([50, -50, 250-z_change]), Point([-50, -50, 250-z_change])] 
-list_points_pyramid = [Point([0, 50, 200-z_change]),
-               Point([-50, -50, 150-z_change]), Point([50, -50, 150-z_change]),  
-               Point([50, -50, 250-z_change]), Point([-50, -50, 250-z_change])] 
-list_points_table = [Point([-50, 100, 150-z_change]), Point([50, 100, 150-z_change]), 
-               Point([50, 100, 250-z_change]), Point([-50, 100,250-z_change]), 
-               Point([-50, -50, 150-z_change]), Point([50, -50, 150-z_change]),  
-               Point([50, -50, 250-z_change]), Point([-50, -50, 250-z_change])] 
+               Point([50, -50, 250-z_change]), Point([-50, -50, 250-z_change])
+                   ]
 
-list_points = list_points_table
+list_points_pyramid = [
+               Point([0, 50, 200-z_change]),
+               Point([-50, -50, 150-z_change]), Point([50, -50, 150-z_change]),  
+               Point([50, -50, 250-z_change]), Point([-50, -50, 250-z_change])
+                      ]
 
-def turn_all_points_z():
+list_points_table = [
+                Point([-55, 0, 150-z_change]), Point([-35, 0, 150-z_change]), 
+               Point([-35, 0, 170-z_change]), Point([-55, 0,170-z_change]), 
+               Point([-55, -50, 150-z_change]), Point([-35, -50, 150-z_change]),  
+               Point([-35, -50, 170-z_change]), Point([-55, -50, 170-z_change]),
+               Point([35, 0, 150-z_change]), Point([55, 0, 150-z_change]), 
+               Point([55, 0, 170-z_change]), Point([35, 0,170-z_change]), 
+               Point([35, -50, 150-z_change]), Point([55, -50, 150-z_change]),  
+               Point([55, -50, 170-z_change]), Point([35, -50, 170-z_change]),
+               Point([-55, 0, 240-z_change]), Point([-35, 0, 240-z_change]), 
+               Point([-35, 0,260-z_change]), Point([-55, 0,170-z_change]), 
+               Point([-55, -50, 240-z_change]), Point([-35, -50, 240-z_change]),  
+               Point([-35, -50, 260-z_change]), Point([-55, -50, 260-z_change]),
+               Point([35, 0, 240-z_change]), Point([55, 0, 240-z_change]), 
+               Point([55, 0, 260-z_change]), Point([35, 0,260-z_change]), 
+               Point([35, -50, 240-z_change]), Point([55, -50, 240-z_change]),  
+               Point([55, -50, 260-z_change]), Point([35, -50, 260-z_change]),
+               Point([-55, 10, 150-z_change]), Point([55, 10, 150-z_change]), 
+               Point([55, 10, 260-z_change]), Point([-55, 10,260-z_change]), 
+               Point([-55, 0, 150-z_change]), Point([55, 0, 150-z_change]),  
+               Point([55, 0, 260-z_change]), Point([-55, 0, 260-z_change])
+                  ]
+
+def turn_all_points_z(center_coords):
     for i in range(len(list_points)):
-        list_points[i].turn_z((0,0))
+        list_points[i].turn_z((center_coords[0],center_coords[1]))
 def turn_all_points_x():
     for i in range(len(list_points)):
         list_points[i].turn_x((0, 200-z_change))
@@ -103,13 +126,15 @@ def check_all_points():
         list_points[i].check_point()
 
 def generate_cube(size):
+    global list_points
+    list_points = list_points_cube
     while True:
         tu.clear()
         tu.up()
-        turn_all_points_z()
+        turn_all_points_z((0,0))
         
         check_all_points()
-
+        
         tu.up()
         tu.goto(list_points[0].save[0]*size, list_points[0].save[1]*size)
         tu.down()
@@ -162,10 +187,12 @@ def generate_cube(size):
         tu.Screen().update()
 
 def generate_pyramid(size):
+    global list_points
+    list_points = list_points_pyramid
     while True:
         tu.clear()
         turn_all_points_y()
-        turn_all_points_z()
+        turn_all_points_z((0, 0))
         turn_all_points_x()
         check_all_points()
         for i in range(4):
@@ -179,19 +206,65 @@ def generate_pyramid(size):
         tu.goto(list_points[4].save[0]*size, list_points[4].save[1]*size)
         tu.Screen().update()
 
-def generate_table():
+def generate_table(size):
     while True:
         tu.clear()
-        check_all_points()
         tu.up()
-        tu.goto(list_points[0].save[0], list_points[0].save[1])
-        tu.down()
-        tu.goto(list_points[1].save[0], list_points[1].save[1])
-        tu.goto(list_points[3].save[0], list_points[3].save[1])
-        tu.goto(list_points[2].save[0], list_points[2].save[1])
-        tu.goto(list_points[0].save[0], list_points[0].save[1])
-        tu.Screen().update
-generate_cube(5)
+        turn_all_points_z((0,-20))
+        
+        check_all_points()
+        for i in range(5):
+            tu.up()
+            tu.goto(list_points[8*i].save[0]*size, list_points[0].save[1]*size)
+            tu.down()
+            tu.goto(list_points[1+8*i].save[0]*size, list_points[1].save[1]*size)
+            tu.goto(list_points[2+8*i].save[0]*size, list_points[2].save[1]*size)
+            tu.goto(list_points[3+8*i].save[0]*size, list_points[3].save[1]*size)
+            tu.goto(list_points[8*i].save[0]*size, list_points[0].save[1]*size)            
+            tu.up()
+            tu.goto(list_points[4+8*i].save[0]*size, list_points[4].save[1]*size)
+            tu.down()
+            tu.goto(list_points[5+8*i].save[0]*size, list_points[5].save[1]*size)
+            tu.goto(list_points[6+8*i].save[0]*size, list_points[6].save[1]*size)
+            tu.goto(list_points[7+8*i].save[0]*size, list_points[7].save[1]*size)
+            tu.goto(list_points[4+8*i].save[0]*size, list_points[4].save[1]*size)
+            
+            tu.up()
+            tu.goto(list_points[4+8*i].save[0]*size, list_points[4].save[1]*size)
+            tu.down()
+            tu.goto(list_points[0+8*i].save[0]*size, list_points[0].save[1]*size)
+            tu.up()
+            tu.goto(list_points[5+8*i].save[0]*size, list_points[5].save[1]*size)
+            tu.down()
+            tu.goto(list_points[1+8*i].save[0]*size, list_points[1].save[1]*size)
+            tu.up()
+            tu.goto(list_points[6+8*i].save[0]*size, list_points[6].save[1]*size)
+            tu.down()
+            tu.goto(list_points[2+8*i].save[0]*size, list_points[2].save[1]*size)
+            tu.up()
+            tu.goto(list_points[7+8*i].save[0]*size, list_points[7].save[1]*size)
+            tu.down()
+            tu.goto(list_points[3+8*i].save[0]*size, list_points[3].save[1]*size)
+            tu.Screen().update()
+            
+            tu.up()
+            tu.goto(list_points[4+8*i].save[0]*size, list_points[4].save[1]*size)
+            tu.down()
+            tu.goto(list_points[8*i].save[0]*size, list_points[0].save[1]*size)
+            tu.up()
+            tu.goto(list_points[5+8*i].save[0]*size, list_points[5].save[1]*size)
+            tu.down()
+            tu.goto(list_points[1+8*i].save[0]*size, list_points[1].save[1]*size)
+            tu.up()
+            tu.goto(list_points[6+8*i].save[0]*size, list_points[6].save[1]*size)
+            tu.down()
+            tu.goto(list_points[2+8*i].save[0]*size, list_points[2].save[1]*size)
+            tu.up()
+            tu.goto(list_points[7+8*i].save[0]*size, list_points[7].save[1]*size)
+            tu.down()
+            tu.goto(list_points[3+8*i].save[0]*size, list_points[3].save[1]*size)
+        tu.Screen().update()
+generate_pyramid(5)
 
 
         
